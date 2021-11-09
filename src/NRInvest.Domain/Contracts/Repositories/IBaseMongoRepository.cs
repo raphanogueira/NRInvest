@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace NRInvest.Domain.Contracts.Repositories
 {
-    public interface IAccountRepository
+    public interface IBaseMongoRepository<T> where T : Entity
     {
-        Task<Account> AddAsync(Account account);
+        Task<T> AddAsync(T entity);
     }
 }

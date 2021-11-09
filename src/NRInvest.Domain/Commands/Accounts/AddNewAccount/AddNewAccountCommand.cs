@@ -1,8 +1,6 @@
-﻿using MediatR;
-
-namespace NRInvest.Domain.Commands.Accounts.AddNewAccount
+﻿namespace NRInvest.Domain.Commands.Accounts.AddNewAccount
 {
-    public sealed class AddNewAccountCommand : IRequest<object>
+    public sealed class AddNewAccountCommand : BaseCommand
     {
         public string UserName { get; set; }
         public string Password { get; set; }

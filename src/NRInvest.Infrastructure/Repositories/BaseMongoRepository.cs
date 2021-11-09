@@ -1,10 +1,12 @@
 ﻿using MongoDB.Driver;
+using NRInvest.Domain.Contracts.Repositories;
+using NRInvest.Domain.Entities;
 using NRInvest.Domain.Models;
 using System.Threading.Tasks;
 
 namespace NRInvest.Infrastructure.MongoDB.Repositories
 {
-    public class BaseMongoRepository<T>
+    public class BaseMongoRepository<T> : IBaseMongoRepository<T> where T : Entity
     {
         protected readonly IMongoCollection<T> Collection;
 

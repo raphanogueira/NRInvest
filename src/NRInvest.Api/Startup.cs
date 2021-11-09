@@ -1,15 +1,9 @@
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
-using NRInvest.Domain.Commands.Accounts.AddNewAccount;
-using NRInvest.Domain.Contracts.Repositories;
-using NRInvest.Domain.Models;
-using NRInvest.Domain.Profiles;
-using NRInvest.Infrastructure.MongoDB.Repositories;
+using NRInvest.Api.Extensions;
 
 namespace NRInvest.Api
 {
@@ -25,15 +19,12 @@ namespace NRInvest.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddMediatR(typeof(AddNewAccountCommand).Assembly);
-            services.AddAutoMapper(typeof(AccountProfile).Assembly);
+
             services.AddSwaggerGen();
 
-            services.Configure<MongoSettings>(
-                Configuration.GetSection(nameof(MongoSettings)));
-
-            services.AddSingleton(sp => sp.GetRequiredService<IOptions<MongoSettings>>().Value);
-            services.AddSingleton<IAccountRepository, AccountRepository>();
+            services.AddMongoDb(Configuration);
+            services.AddRepositories();
+            services.AddDomainDependencies();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

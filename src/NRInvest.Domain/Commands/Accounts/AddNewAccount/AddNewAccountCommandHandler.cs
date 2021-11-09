@@ -9,10 +9,10 @@ namespace NRInvest.Domain.Commands.Accounts.AddNewAccount
 {
     public sealed class AddNewAccountCommandHandler : IRequestHandler<AddNewAccountCommand, object>
     {
-        private readonly IAccountRepository _accountRepository;
+        private readonly IBaseMongoRepository<Account> _accountRepository;
         private readonly IMapper _mapper;
 
-        public AddNewAccountCommandHandler(IAccountRepository accountRepository,
+        public AddNewAccountCommandHandler(IBaseMongoRepository<Account> accountRepository,
             IMapper mapper)
         {
             _accountRepository = accountRepository;
