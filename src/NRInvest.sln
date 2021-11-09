@@ -13,11 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NRInvest.Domain", "NRInvest
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infrastructure", "3 - Infrastructure", "{2BB038A9-65A3-48DA-BDFD-90655F9F9603}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NRInvest.Infrastructure", "NRInvest.Infrastructure\NRInvest.Infrastructure.csproj", "{45D5FC2C-FD75-4F9C-A54C-ED0E84F34D87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NRInvest.Infrastructure.MongoDB", "NRInvest.Infrastructure\NRInvest.Infrastructure.MongoDB.csproj", "{45D5FC2C-FD75-4F9C-A54C-ED0E84F34D87}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Test", "4 - Test", "{CECE6DDD-FEFC-425A-B52B-3B6A352007AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRInvest.Domain.Test", "NRInvest.Domain.Test\NRInvest.Domain.Test.csproj", "{FDAF1A58-14E9-46D1-8E54-E9BA121AFADE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NRInvest.Domain.Test", "NRInvest.Domain.Test\NRInvest.Domain.Test.csproj", "{FDAF1A58-14E9-46D1-8E54-E9BA121AFADE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
