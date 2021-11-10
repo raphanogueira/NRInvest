@@ -24,17 +24,14 @@ namespace NRInvest.Api.Pipelines
 
             var context = new ValidationContext<TRequest>(request);
 
-            var errors = _validators
-                .Select(x => x.Validate(context))
-                .SelectMany(x => x.Errors)
-                .Where(x => x != null)
-                .GroupBy(
-                    x => x.PropertyName,
-                    x => x.ErrorMessage,
-                    (propertyName, errorMessages) => errorMessages.Distinct().FirstOrDefault());
+            var errorMessages = _validators
+                .Select(validator => validator.Validate(context))
+                .SelectMany(validatorResult => validatorResult.Errors)
+                .Where(validatorFailure => validatorFailure != null)
+                .Select(validatorFailure => validatorFailure.ErrorMessage);
 
-            return errors.Any() 
-                ? throw new NRInvestValidationException(errors) 
+            return errorMessages.Any() 
+                ? throw new NRInvestValidationException(errorMessages) 
                 : await next();
         }
     }
