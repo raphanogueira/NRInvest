@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using NRInvest.Domain.Commands;
+using NRInvest.Domain.Exceptions;
 using System;
 using System.Threading.Tasks;
 
@@ -29,7 +30,11 @@ namespace NRInvest.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return ex switch
+                {
+                    NRInvestValidationException => BadRequest(ex.Message),
+                    _ => Problem()
+                };
             }
         }
     }
