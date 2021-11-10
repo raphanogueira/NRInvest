@@ -28,7 +28,8 @@ namespace NRInvest.Api.Pipelines
                 .Select(validator => validator.Validate(context))
                 .SelectMany(validatorResult => validatorResult.Errors)
                 .Where(validatorFailure => validatorFailure != null)
-                .Select(validatorFailure => validatorFailure.ErrorMessage);
+                .Select(validatorFailure => validatorFailure.ErrorMessage)
+                .Distinct();
 
             return errorMessages.Any() 
                 ? throw new NRInvestValidationException(errorMessages) 

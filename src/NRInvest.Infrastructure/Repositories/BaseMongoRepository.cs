@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using NRInvest.Domain.Contracts;
 using NRInvest.Domain.Contracts.Repositories;
 using NRInvest.Domain.Entities;
 using NRInvest.Domain.Models;
@@ -23,6 +24,11 @@ namespace NRInvest.Infrastructure.MongoDB.Repositories
             await Collection.InsertOneAsync(entity);
 
             return entity;
+        }
+
+        public async Task<T> GetAsync(IMongoFilter<T> filters)
+        {
+            return await Collection.Find(filters.Build()).FirstOrDefaultAsync();
         }
     }
 }
