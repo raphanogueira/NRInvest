@@ -24,6 +24,19 @@ namespace NRInvest.Api.Extensions
             return services;
         }
 
+        public static IServiceCollection InjectRedis(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddSettings<RedisSettings>(configuration, out var redisSettings);
+
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = redisSettings.ConnectionString;
+                options.InstanceName = redisSettings.InstanceName;
+            });
+
+            return services;
+        }
+
         public static IServiceCollection InjectRepositories(this IServiceCollection services)
         {
             services.AddSingleton(typeof(IBaseMongoRepository<>), typeof(BaseMongoRepository<>));
@@ -51,8 +64,20 @@ namespace NRInvest.Api.Extensions
 
         public static IServiceCollection AddSettings<T>(this IServiceCollection services, IConfiguration configuration) where T : Settings, new()
         {
-            return services.Configure<T>(configuration.GetSection(typeof(T).Name))
-                    .AddSingleton(serviceCollections => serviceCollections.GetRequiredService<IOptions<T>>().Value);
+            services.Configure<T>(configuration.GetSection(typeof(T).Name));
+
+            var settings = services.BuildServiceProvider().GetRequiredService<IOptions<T>>().Value;
+
+            return services.AddSingleton(settings);
+        }
+
+        public static IServiceCollection AddSettings<T>(this IServiceCollection services, IConfiguration configuration, out T settings) where T : Settings, new()
+        {
+            services.Configure<T>(configuration.GetSection(typeof(T).Name));
+
+            settings = services.BuildServiceProvider().GetRequiredService<IOptions<T>>().Value;
+
+            return services.AddSingleton(settings);
         }
     }
 }

@@ -1,8 +1,12 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Caching.Distributed;
 using NRInvest.Domain.Contracts.Authentication;
 using NRInvest.Domain.Contracts.Repositories;
 using NRInvest.Domain.Entities;
+using NRInvest.Domain.Extensions;
 using NRInvest.Domain.Filters;
+using System;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

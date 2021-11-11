@@ -29,7 +29,8 @@ namespace NRInvest.Api
                 .InjectDomain()
                 .InjectRepositories()
                 .InjectServices()
-                .InjectSettings(Configuration);
+                .InjectSettings(Configuration)
+                .InjectRedis(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
