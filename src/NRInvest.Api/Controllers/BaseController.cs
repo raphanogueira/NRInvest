@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using NRInvest.Api.Attributes;
 using NRInvest.Domain.Commands;
 using NRInvest.Domain.Exceptions;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace NRInvest.Api.Controllers
 {
+    [NRInvestAuthorize]
     public abstract class BaseController : ControllerBase
     {
         private readonly IServiceProvider ServiceProvider;

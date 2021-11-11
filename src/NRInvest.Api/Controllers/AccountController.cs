@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NRInvest.Api.Attributes;
 using NRInvest.Domain.Commands.Accounts.AddNewAccount;
 using NRInvest.Domain.Entities;
 using System;

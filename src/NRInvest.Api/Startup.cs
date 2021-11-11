@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NRInvest.Api.Extensions;
+using NRInvest.Api.Pipelines;
 
 namespace NRInvest.Api
 {
@@ -18,13 +19,17 @@ namespace NRInvest.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthorization();
+
             services.AddControllers();
 
             services.AddSwaggerGen();
 
-            services.AddMongoDb(Configuration);
-            services.AddRepositories();
-            services.AddDomainDependencies();
+            services
+                .InjectDomain()
+                .InjectRepositories()
+                .InjectServices()
+                .InjectSettings(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -36,11 +41,14 @@ namespace NRInvest.Api
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseCors(policy => policy
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

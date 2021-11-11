@@ -1,4 +1,5 @@
 ﻿using NRInvest.Domain.Entities;
+using System;
 using System.Threading.Tasks;
 
 namespace NRInvest.Domain.Contracts.Repositories
@@ -7,5 +8,6 @@ namespace NRInvest.Domain.Contracts.Repositories
     {
         Task<T> AddAsync(T entity);
         Task<T> GetAsync(IMongoFilter<T> filters);
+        Task<T> GetByIdAsync(Guid id);
     }
 }

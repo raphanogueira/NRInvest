@@ -3,6 +3,7 @@ using NRInvest.Domain.Contracts;
 using NRInvest.Domain.Contracts.Repositories;
 using NRInvest.Domain.Entities;
 using NRInvest.Domain.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace NRInvest.Infrastructure.MongoDB.Repositories
@@ -29,6 +30,13 @@ namespace NRInvest.Infrastructure.MongoDB.Repositories
         public async Task<T> GetAsync(IMongoFilter<T> filters)
         {
             return await Collection.Find(filters.Build()).FirstOrDefaultAsync();
+        }
+
+        public async Task<T> GetByIdAsync(Guid id)
+        {
+            var filters = Builders<T>.Filter.Eq(entity => entity.Id, id);
+
+            return await Collection.Find(filters).FirstOrDefaultAsync();
         }
     }
 }
