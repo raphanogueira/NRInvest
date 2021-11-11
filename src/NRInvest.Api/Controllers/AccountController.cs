@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NRInvest.Api.Attributes;
 using NRInvest.Domain.Commands.Accounts.AddNewAccount;
 using NRInvest.Domain.Entities;
 using System;
@@ -17,6 +16,7 @@ namespace NRInvest.Api.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(Account), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> PostAsync(AddNewAccountCommand command)

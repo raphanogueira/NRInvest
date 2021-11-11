@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace NRInvest.Api.Pipelines
 {
-    public class JwtMiddleware
+    public sealed class JwtMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly JwtSettings _jwtSettings;
@@ -26,7 +26,7 @@ namespace NRInvest.Api.Pipelines
             _accountRepository = accountRepository;
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task InvokeAsync(HttpContext context)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").LastOrDefault();
 
