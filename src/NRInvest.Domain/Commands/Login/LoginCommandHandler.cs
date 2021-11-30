@@ -3,10 +3,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using NRInvest.Domain.Contracts.Authentication;
 using NRInvest.Domain.Contracts.Repositories;
 using NRInvest.Domain.Entities;
-using NRInvest.Domain.Extensions;
 using NRInvest.Domain.Filters;
-using System;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,12 +13,15 @@ namespace NRInvest.Domain.Commands.Login
     {
         private readonly IBaseMongoRepository<Account> _accountRepository;
         private readonly IAuthenticationService _authenticationService;
+        private readonly IDistributedCache _distributedCache;
 
         public LoginCommandHandler(IBaseMongoRepository<Account> accountRepository,
-            IAuthenticationService authenticationService)
+            IAuthenticationService authenticationService,
+            IDistributedCache distributedCache)
         {
             _accountRepository = accountRepository;
             _authenticationService = authenticationService;
+            _distributedCache = distributedCache;
         }
 
         public async Task<object> Handle(LoginCommand request, CancellationToken cancellationToken)
