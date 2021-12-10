@@ -28,7 +28,12 @@ namespace NRInvest.Domain.Commands.Login
         {
             var account = await _accountRepository.GetAsync(new GetAccountByFilters(request.Email, request.Password));
 
+            if (account is null)
+                return null;
+
             var token = _authenticationService.GenerateToken(account);
+
+            await _distributedCache.SetStringAsync("Token", token, cancellationToken);
 
             return token;
         }

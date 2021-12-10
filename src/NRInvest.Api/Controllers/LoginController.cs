@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NRInvest.Domain.Commands.Login;
-using System;
 using System.Threading.Tasks;
 
 namespace NRInvest.Api.Controllers
@@ -10,7 +10,7 @@ namespace NRInvest.Api.Controllers
     [Route("login")]
     public sealed class LoginController : BaseController
     {
-        public LoginController(IServiceProvider serviceProvider) : base(serviceProvider)
+        public LoginController(IMediator mediator) : base(mediator)
         {
         }
 

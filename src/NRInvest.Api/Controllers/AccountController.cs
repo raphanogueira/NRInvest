@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NRInvest.Domain.Commands.Accounts.AddNewAccount;
 using NRInvest.Domain.Entities;
-using System;
 using System.Threading.Tasks;
 
 namespace NRInvest.Api.Controllers
@@ -11,7 +11,7 @@ namespace NRInvest.Api.Controllers
     [Route("accounts")]
     public sealed class AccountController : BaseController
     {
-        public AccountController(IServiceProvider serviceProvider) : base(serviceProvider)
+        public AccountController(IMediator mediator) : base(mediator)
         {
         }
 

@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using NRInvest.Api.Attributes;
 using NRInvest.Domain.Commands;
 using NRInvest.Domain.Exceptions;
@@ -12,23 +11,19 @@ namespace NRInvest.Api.Controllers
     [NRInvestAuthorize]
     public abstract class BaseController : ControllerBase
     {
-        private readonly IServiceProvider ServiceProvider;
+        private readonly IMediator Mediator;
 
         protected BaseController(
-            IServiceProvider serviceProvider)
+            IMediator mediator)
         {
-            ServiceProvider = serviceProvider;
+            Mediator = mediator;
         }
 
         protected async Task<IActionResult> SafeExecuteAsync(BaseCommand command)
         {
             try
             {
-                using var scope = ServiceProvider.CreateScope();
-
-                var mediator = ServiceProvider.GetService<IMediator>();
-
-                return Ok(await mediator.Send(command));
+                return Ok(await Mediator.Send(command));
             }
             catch (Exception ex)
             {
